@@ -17,16 +17,18 @@ A Visual Studio Code extension that helps Flutter developers manage their projec
 1. **Install the Extension**: Search for "Flutter Dependency Analyzer" in the Extensions view (`Ctrl+Shift+X`) and install it.
   
 2. **Commands**:
-   - **List Flutter Dependencies**: 
+
+   - **List Flutter Dependencies**:
+
      - Command: `List Flutter Dependencies`
      - Displays all dependencies found in `pubspec.yaml`.
-   - **Check Unused Dependencies**: 
+   - **Check Unused Dependencies**:
      - Command: `Check Unused Dependencies`
      - Identifies dependencies that are not being used in the code.
-   - **Check Outdated Dependencies**: 
+   - **Check Outdated Dependencies**:
      - Command: `Check Outdated Dependencies`
      - Lists dependencies that are outdated and need updating.
-   - **List Dependencies with Health Scores**: 
+   - **List Dependencies with Health Scores**:
      - Command: `List Flutter Dependencies with Health`
      - Shows dependencies along with their health metrics:
        - **Package**: The name of the dependency
