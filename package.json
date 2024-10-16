@@ -1,0 +1,61 @@
+{
+  "name": "flutter-dependency-analyzer",
+  "displayName": "Flutter Dependency Analyzer",
+  "description": "Analyze Flutter project dependencies",
+  "version": "0.0.1",
+  "compilerOptions": {
+    "skipLibCheck": true
+  },
+  "engines": {
+    "vscode": "^1.70.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "workspaceContains:pubspec.yaml"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.listFlutterDependencies",
+        "title": "Flutter: List Dependencies"
+      },
+      {
+        "command": "extension.checkOutdatedDependencies",
+        "title": "Flutter: Check Outdated Dependencies"
+      },
+      {
+        "command": "extension.checkUnusedDependencies",
+        "title": "Flutter: Check Unused Dependencies"
+      },
+      {
+        "command": "extension.listFlutterDependenciesWithHealth",
+        "title": "Flutter: List Dependencies with Health Scores"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0",
+    "node-fetch": "^2.6.1"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.5",
+    "@types/mocha": "^10.0.9",
+    "@types/node": "^16.18.113",
+    "@types/node-fetch": "^2.6.1",
+    "@types/vscode": "^1.70.0",
+    "@typescript-eslint/eslint-plugin": "^5.31.0",
+    "@typescript-eslint/parser": "^5.31.0",
+    "eslint": "^8.20.0",
+    "typescript": "^4.7.4"
+  }
+}
