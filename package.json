@@ -1,7 +1,7 @@
 {
   "name": "flutter-dependency-analyzer",
   "displayName": "Flutter Dependency Analyzer",
-  "description": "Analyze Flutter project dependencies",
+  "description": "This extension checks for unused dependencies, outdated dependencies, and provides health scores for each dependency found in the `pubspec.yaml` file.",
   "version": "0.0.1",
   "repository": {
     "type": "git",

@@ -41,7 +41,6 @@ A Visual Studio Code extension that helps Flutter developers manage their projec
 
 When using the `List Flutter Dependencies with Health` command, you can expect an output similar to the following:
 
-
 ## Requirements
 
 - Visual Studio Code
