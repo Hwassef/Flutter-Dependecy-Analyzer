@@ -3,6 +3,10 @@
   "displayName": "Flutter Dependency Analyzer",
   "description": "Analyze Flutter project dependencies",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Hwassef/Flutter-Dependecy-Analyzer.git"
+  },
   "compilerOptions": {
     "skipLibCheck": true
   },
