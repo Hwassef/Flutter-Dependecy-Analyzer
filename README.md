@@ -1,71 +1,60 @@
-# flutter-dependency-analyzer README
+# Flutter Dependency Analyzer
 
-This is the README for your extension "flutter-dependency-analyzer". After writing up a brief description, we recommend including the following sections.
+A Visual Studio Code extension that helps Flutter developers manage their project dependencies effectively. This extension checks for unused dependencies, outdated dependencies, and provides health scores for each dependency found in the `pubspec.yaml` file.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- **List Flutter Dependencies**: View all dependencies listed in your `pubspec.yaml`.
+- **Check for Unused Dependencies**: Identify and manage dependencies that are no longer being used in your project.
+- **Check for Outdated Dependencies**: Quickly find which dependencies need to be updated to their latest versions.
+- **List Dependencies with Health Scores**: Get a detailed view of each dependency's health, including:
+  - Popularity
+  - Health status (Good, Average, Poor, Unknown)
+  - Maintenance status
 
-For example if there is an image subfolder under your extension project workspace:
+## Usage
 
-\!\[feature X\]\(images/feature-x.png\)
+1. **Install the Extension**: Search for "Flutter Dependency Analyzer" in the Extensions view (`Ctrl+Shift+X`) and install it.
+  
+2. **Commands**:
+   - **List Flutter Dependencies**: 
+     - Command: `List Flutter Dependencies`
+     - Displays all dependencies found in `pubspec.yaml`.
+   - **Check Unused Dependencies**: 
+     - Command: `Check Unused Dependencies`
+     - Identifies dependencies that are not being used in the code.
+   - **Check Outdated Dependencies**: 
+     - Command: `Check Outdated Dependencies`
+     - Lists dependencies that are outdated and need updating.
+   - **List Dependencies with Health Scores**: 
+     - Command: `List Flutter Dependencies with Health`
+     - Shows dependencies along with their health metrics:
+       - **Package**: The name of the dependency
+       - **Version**: The version specified in your `pubspec.yaml`
+       - **Health**: A textual indicator showing the health status of the dependency (e.g., `[Good]`, `[Average]`, `[Poor]`, `[Unknown]`)
+       - **Popularity**: Popularity score of the dependency
+       - **Maintenance**: Maintenance status of the dependency
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+## Example Output
+
+When using the `List Flutter Dependencies with Health` command, you can expect an output similar to the following:
+
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+- Visual Studio Code
+- A Flutter project with a `pubspec.yaml` file
 
-## Extension Settings
+## Installation
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+1. Open Visual Studio Code.
+2. Go to the Extensions view by clicking on the Extensions icon in the Activity Bar on the side of the window.
+3. Search for "Flutter Dependency Analyzer" and click **Install**.
 
-For example:
+## Contributing
 
-This extension contributes the following settings:
+Contributions are welcome! Please feel free to submit a pull request or open an issue if you encounter any bugs or have suggestions for improvements.
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+## License
 
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
