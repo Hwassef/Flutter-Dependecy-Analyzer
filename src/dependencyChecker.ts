@@ -6,7 +6,7 @@ export function checkOutdatedDependencies() {
     outputChannel.show();
     outputChannel.appendLine('Checking for outdated dependencies...');
 
-    exec('flutter pub outdated', (error, stdout, stderr) => {
+    exec('dart pub outdated', (error, stdout, stderr) => {
         if (error) {
             vscode.window.showErrorMessage(`Error: ${stderr}`);
             return;

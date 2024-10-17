@@ -3,20 +3,22 @@
   "displayName": "Flutter Dependency Analyzer",
   "description": "This extension checks for unused dependencies, outdated dependencies, and provides health scores for each dependency found in the `pubspec.yaml` file.",
   "version": "0.0.1",
+  "publisher": "Hwassef",
   "repository": {
     "type": "git",
     "url": "https://github.com/Hwassef/Flutter-Dependecy-Analyzer.git"
-  },
-  "compilerOptions": {
-    "skipLibCheck": true
   },
   "engines": {
     "vscode": "^1.70.0"
   },
   "categories": [
+    "Programming Languages",
+    "Linters",
     "Other"
   ],
   "activationEvents": [
+    "onLanguage:dart",
+    "onLanguage:yaml",
     "workspaceContains:pubspec.yaml"
   ],
   "main": "./out/extension.js",
@@ -24,34 +26,65 @@
     "commands": [
       {
         "command": "extension.listFlutterDependencies",
-        "title": "Flutter: List Dependencies"
+        "title": "Flutter: List Dependencies",
+        "category": "Flutter"
       },
       {
         "command": "extension.checkOutdatedDependencies",
-        "title": "Flutter: Check Outdated Dependencies"
+        "title": "Flutter: Check Outdated Dependencies",
+        "category": "Flutter"
       },
       {
         "command": "extension.checkUnusedDependencies",
-        "title": "Flutter: Check Unused Dependencies"
+        "title": "Flutter: Check Unused Dependencies",
+        "category": "Flutter"
       },
       {
         "command": "extension.listFlutterDependenciesWithHealth",
-        "title": "Flutter: List Dependencies with Health Scores"
+        "title": "Flutter: List Dependencies with Health Scores",
+        "category": "Flutter"
+      },
+      {
+        "command": "extension.analyzeFlutterDependencies",
+        "title": "Flutter: Analyze All Dependencies",
+        "category": "Flutter"
       }
-    ]
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "extension.listFlutterDependencies"
+        },
+        {
+          "command": "extension.checkOutdatedDependencies"
+        },
+        {
+          "command": "extension.checkUnusedDependencies"
+                },
+        {
+          "command": "extension.listFlutterDependenciesWithHealth"
+                },
+        {
+          "command": "extension.analyzeFlutterDependencies"
+                }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src --ext ts"
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
   },
   "dependencies": {
     "js-yaml": "^4.1.0",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.1",
+    "vscode-languageclient": "^8.1.0"
   },
   "devDependencies": {
+    "@types/glob": "^8.1.0",
     "@types/js-yaml": "^4.0.5",
     "@types/mocha": "^10.0.9",
     "@types/node": "^16.18.113",
@@ -60,6 +93,8 @@
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",
     "eslint": "^8.20.0",
+    "glob": "^8.1.0",
+    "mocha": "^10.2.0",
     "typescript": "^4.7.4"
   }
 }
