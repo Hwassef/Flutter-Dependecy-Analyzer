@@ -6,7 +6,6 @@ import { FileHelper } from './fileHelper';
 import fetch from 'node-fetch';
 import { getDependenciesFromPubspec } from '../dependencyManager';
 
-
 export class DependencyAnalyzer {
     static async getDependenciesFromPubspec(): Promise<PubspecDependencies> {
         const workspaceFolder = WorkspaceHelper.getWorkspaceFolder();
