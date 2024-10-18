@@ -1,6 +1,6 @@
-// src/types.ts
 import * as vscode from 'vscode';
 import { DependencyCommands } from './utils/dependecyCommands';
+import { DependencyAnalyzer, listDependenciesWithHealth } from './utils/dependecyAnalyzer';
 
 export interface DependencyUsage {
 	[depName: string]: string[];
@@ -43,10 +43,12 @@ export const EXTENSION_CONSTANTS = {
 };
 
 export function activate(context: vscode.ExtensionContext) {
+	const dependencyAnalyzer = new DependencyAnalyzer();
+
 	const commands = [
 		vscode.commands.registerCommand(
 			'extension.dependenciesHealthChecker',
-			DependencyCommands.checkDependencyHealth
+			() => listDependenciesWithHealth()
 		),
 		vscode.commands.registerCommand(
 			'extension.checkOutdatedDependencies',

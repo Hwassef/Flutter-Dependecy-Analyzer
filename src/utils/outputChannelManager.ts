@@ -1,5 +1,4 @@
 import { EXTENSION_CONSTANTS } from "../extension";
-
 import * as vscode from 'vscode';
 export class OutputChannelManager {
     private static channels: Map<string, vscode.OutputChannel> = new Map();

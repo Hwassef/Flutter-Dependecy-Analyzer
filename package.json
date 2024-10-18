@@ -41,7 +41,7 @@
       },
       {
         "command": "extension.listFlutterDependenciesWithUsage",
-        "title": "List Flutter Dependencies and Usage",
+        "title": "List Dependencies and Usage",
         "category": "Flutter"
       },
       {

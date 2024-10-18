@@ -3,8 +3,8 @@ import { WorkspaceHelper } from './workSpaceHelper';
 import { OutputChannelManager } from './outputChannelManager';
 import { DependencyUsage, EXTENSION_CONSTANTS } from '../extension';
 import { DependencyHealthChecker } from './dependecyHealthChecker';
-import { DependencyAnalyzer } from './dependecyAnalyzer';
 import { DependencyTreeDataProvider } from './treeView';
+import { DependencyAnalyzer } from './dependecyAnalyzer';
 export class DependencyCommands {
     static async checkDependencyHealth(): Promise<void> {
         if (!WorkspaceHelper.checkFlutterProject()) {
