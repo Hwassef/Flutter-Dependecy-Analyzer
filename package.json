@@ -4,6 +4,7 @@
   "description": "This extension checks for unused dependencies, outdated dependencies, and provides health scores for each dependency found in the `pubspec.yaml` file.",
   "version": "0.0.1",
   "publisher": "Hwassef",
+  "enabledApiProposals": ["findTextInFiles", "findTextInFilesNew", "fileSearchProviderNew", "findFiles2", "findFiles2New"],
   "repository": {
     "type": "git",
     "url": "https://github.com/Hwassef/Flutter-Dependecy-Analyzer.git"
@@ -23,6 +24,15 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
+  "views": {
+    "explorer": [
+        {
+            "id": "flutterDependencies",
+            "name": "Flutter Dependencies"
+        }
+    ]
+},
+
     "commands": [
       {
         "command": "extension.listFlutterDependencies",
@@ -48,6 +58,11 @@
         "command": "extension.analyzeFlutterDependencies",
         "title": "Flutter: Analyze All Dependencies",
         "category": "Flutter"
+      },
+      {
+        "command": "extension.listFlutterDependenciesWithUsage",
+        "title": "List Flutter Dependencies and Usage",
+        "category": "Flutter"
       }
     ],
     "menus": {
@@ -66,7 +81,8 @@
                 },
         {
           "command": "extension.analyzeFlutterDependencies"
-                }
+                
+        }
       ]
     }
   },
