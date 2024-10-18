@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as yaml from 'js-yaml';
 import fetch from 'node-fetch';
+import { listDependenciesWithHealth } from './dependencyHealth';
 
 export function activate(context: vscode.ExtensionContext) {
 	/** Helper function to check if the current workspace is a Flutter project */
@@ -15,53 +16,79 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 		return true;
 	}
-
-	// Command: List all Flutter dependencies from pubspec.yaml
-	const listDependenciesCommand = vscode.commands.registerCommand('extension.listFlutterDependencies', async () => {
-		if (!checkFlutterProject()) {
-			return;
-		}
-
-		try {
-			const dependencies = await getDependenciesFromPubspec();
-			const outputChannel = vscode.window.createOutputChannel('Flutter Dependency Analyzer');
-			outputChannel.show();
-			outputChannel.appendLine('💡 --- Flutter Dependencies Found --- 💡');
-			outputChannel.appendLine('---------------------------------------');
-
-			Object.entries(dependencies).forEach(([name, version]) => {
-				outputChannel.appendLine(`📦 ${name}: \t${version}`);
-			});
-
-			outputChannel.appendLine('---------------------------------------');
-		} catch (error) {
-			vscode.window.showErrorMessage(`❌ Error fetching dependencies: ${error instanceof Error ? error.message : 'Unknown error occurred.'}`);
-		}
-	});
-
+	const a = vscode.commands.registerCommand('extension.dependenciesHealthChecker', async () => {
+		listDependenciesWithHealth();
+	})
 	// Command: Check for outdated dependencies
 	const checkOutdated = vscode.commands.registerCommand('extension.checkOutdatedDependencies', async () => {
 		if (!checkFlutterProject()) {
 			return;
 		}
 
-		try {
-			const outdatedDeps = await checkOutdatedDependenciesCommand();
-			const outputChannel = vscode.window.createOutputChannel('Flutter Dependency Analyzer');
-			outputChannel.show();
-			outputChannel.appendLine('🔄 --- Outdated Dependencies --- 🔄');
-			outputChannel.appendLine('----------------------------------');
+		const outputChannel = vscode.window.createOutputChannel('Flutter Dependency Analyzer');
+		outputChannel.show();
 
-			if (outdatedDeps.length > 0) {
-				outputChannel.appendLine(outdatedDeps.join('\n'));
-			} else {
-				outputChannel.appendLine('All dependencies are up to date.');
-			}
+		// Progress options for VSCode progress API
+		const progressOptions = {
+			location: vscode.ProgressLocation.Notification,
+			title: 'Checking Dependencies',
+			cancellable: false
+		};
+
+		try {
+			await vscode.window.withProgress(progressOptions, async (progress) => {
+				// Start of check
+				outputChannel.clear(); // Clear previous output
+				outputChannel.appendLine('\n🚀 Starting Dependency Analysis...');
+				outputChannel.appendLine('='.repeat(50));
+				outputChannel.appendLine(`📅 ${new Date().toLocaleString()}`);
+				outputChannel.appendLine('='.repeat(50) + '\n');
+
+				progress.report({ message: 'Analyzing dependencies...' });
+
+				// Perform the check
+				const outdatedDeps = await checkOutdatedDependenciesCommand();
+
+				// Results header
+				outputChannel.appendLine('📊 Analysis Results');
+				outputChannel.appendLine('-'.repeat(50));
+
+				if (outdatedDeps.length > 0) {
+					outputChannel.appendLine('🔄 Outdated Dependencies Found:');
+					outputChannel.appendLine('-'.repeat(30));
+
+					// Format each outdated dependency
+					outdatedDeps.forEach((dep, index) => {
+						outputChannel.appendLine(`${index + 1}. ${dep}`);
+					});
+				} else {
+					outputChannel.appendLine('✅ All dependencies are up to date!');
+				}
+
+				// Completion message
+				outputChannel.appendLine('\n' + '='.repeat(50));
+				outputChannel.appendLine('✨ Analysis Complete!');
+				outputChannel.appendLine(`⏱️ Finished at: ${new Date().toLocaleString()}`);
+				outputChannel.appendLine('='.repeat(50));
+			});
+
 		} catch (error) {
-			vscode.window.showErrorMessage(`❌ Error checking for outdated dependencies: ${error instanceof Error ? error.message : 'Unknown error occurred.'}`);
+			// Error handling with visual formatting
+			outputChannel.appendLine('\n❌ Error occurred during analysis');
+			outputChannel.appendLine('-'.repeat(50));
+			outputChannel.appendLine(`Error details: ${error instanceof Error ? error.message : 'Unknown error occurred.'}`);
+			outputChannel.appendLine('-'.repeat(50));
+
+			vscode.window.showErrorMessage(
+				'❌ Error checking dependencies. Check output for details.',
+				'Show Output'
+			).then(selection => {
+				if (selection === 'Show Output') {
+					outputChannel.show();
+				}
+			});
 		}
 	});
-
 	// Command: Show dependency usage insights with a loading indicator
 	const showDependencyUsageCommand = vscode.commands.registerCommand('extension.listFlutterDependenciesWithUsage', async () => {
 		if (!checkFlutterProject()) {
@@ -150,7 +177,6 @@ export function activate(context: vscode.ExtensionContext) {
 
 	// Register all commands for proper disposal upon deactivation
 	context.subscriptions.push(
-		listDependenciesCommand,
 		checkOutdated,
 		showDependencyUsageCommand
 	);
@@ -209,10 +235,10 @@ async function checkOutdatedDependenciesCommand(): Promise<string[]> {
  */
 
 async function findDependencyUsage(dependencyName: string): Promise<string[]> {
-	const workspaceFolder = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath; // Get the project folder
+	const workspaceFolder = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
 	if (!workspaceFolder) {
 		console.warn('No workspace folder found.');
-		return []; // Return an empty array if no workspace folder is found
+		return [];
 	}
 
 	const startTime = Date.now();

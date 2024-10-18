@@ -83,7 +83,7 @@ export async function listDependenciesWithHealth() {
     outputChannel.appendLine('Analyzing dependencies health...\n');
 
     try {
-        const dependencies = await getDependenciesFromPubspec();
+        const dependencies = getDependenciesFromPubspec();
         const totalDeps = Object.keys(dependencies).length;
         let processed = 0;
 
@@ -101,28 +101,14 @@ export async function listDependenciesWithHealth() {
 
                     // Construct a more informative output message
                     const scoreMessage = `
-                    📦 Package: ${name} (Version: ${version})
-                    -----------------------------------------
-                    🔥 Popularity: ${health.popularity} 
-                      - How widely used and liked the package is by the community.
-                    
-                    👍 Likes: ${health.likes} 
-                      - The number of likes received by the package from the community.
-                    
-                    🛠️ Maintenance: ${health.maintenance} 
-                      - How actively maintained the package is (higher is better).
-                    
-                    🔧 Quality: ${health.quality} 
-                      - The quality of the package code and overall health.
-                    
-                    🏅 Pub Points: ${health.pubPoints} 
-                      - Points reflecting the quality and completeness of the package (maximum 160 points).
-                    -----------------------------------------
-                    `;
-
+📦 Package: ${name} (Version: ${version})
+-----------------------------------------
+🔥 Popularity: ${health.popularity} 
+👍 Likes: ${health.likes} 
+🏅 Pub Points: ${health.pubPoints} 
+-----------------------------------------
+`;
                     outputChannel.appendLine(scoreMessage.trim());
-
-                    // Show progress in the status bar
                     vscode.window.setStatusBarMessage(
                         `Analyzing dependencies: ${processed}/${totalDeps}`,
                         2000
